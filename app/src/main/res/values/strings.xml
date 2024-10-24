@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">RoadDefectsDetection</string>
+    <string name="full_name">FULL NAME</string>
+    <string name="email">EMAIL</string>
+    <string name="password">PASSWORD</string>
+    <string name="confirm_password">CONFIRM PASSWORD</string>
+    <string name="register">REGISTER</string>
+    <string name="login">LOGIN</string>
+    <string name="loginWithGoogle">LOGIN WITH GOOGLE</string>
+    <string name="newUserInfo">IF YOU ARE A NEW USER CLICK</string>
+</resources>
