@@ -2,6 +2,7 @@ package com.rukiyedinler.roaddefectsdetection.repository
 
 import com.rukiyedinler.roaddefectsdetection.data.LoginBody
 import com.rukiyedinler.roaddefectsdetection.data.RegisterBody
+import com.rukiyedinler.roaddefectsdetection.data.UserBody
 import com.rukiyedinler.roaddefectsdetection.data.ValidateEmailBody
 import com.rukiyedinler.roaddefectsdetection.utils.APIConsumer
 import com.rukiyedinler.roaddefectsdetection.utils.RequestStatus
@@ -45,6 +46,22 @@ class AuthRepository(val consumer: APIConsumer) {
     fun loginUser(body: LoginBody) = flow {
         emit(RequestStatus.Waiting)
         val response = consumer.loginUser(body)
+        if (response.isSuccessful) {
+            emit(RequestStatus.Success(response.body()!!))
+        } else {
+            emit(
+                RequestStatus.Error(
+                    SimplifiedMessage.get(
+                        response.errorBody()!!.byteStream().reader().readText()
+                    )
+                )
+            )
+        }
+    }
+
+    fun getUser(token:String) = flow {
+        emit(RequestStatus.Waiting)
+        val response = consumer.getUser(token)
         if (response.isSuccessful) {
             emit(RequestStatus.Success(response.body()!!))
         } else {
