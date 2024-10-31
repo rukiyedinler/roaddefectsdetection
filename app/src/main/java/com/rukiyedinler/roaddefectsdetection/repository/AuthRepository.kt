@@ -31,7 +31,7 @@ class AuthRepository(val consumer: APIConsumer) {
         emit(RequestStatus.Waiting)
         val response = consumer.registerUser(body)
         if (response.isSuccessful) {
-            emit(RequestStatus.Success(response.body()))
+            emit(RequestStatus.Success(response.body()!!))
         } else {
             emit(
                 RequestStatus.Error(

@@ -26,30 +26,6 @@ class LoginActivityViewModel(val authRepository: AuthRepository, val application
     fun getErrorMessage(): LiveData<HashMap<String, String>> = errorMessage
     fun getUser(): LiveData<User> = user
 
-
-    fun getUserInfo() {
-        viewModelScope.launch {
-            authRepository.getUser(token = "Bearer ${AuthToken.getInstance(application.baseContext).token}").collect {
-                when (it) {
-                    is RequestStatus.Waiting -> {
-                        isLoading.value = true
-                    }
-
-                    is RequestStatus.Success -> {
-                        isLoading.value = false
-                        user.value = it.data
-                        //AuthToken.getInstance(application.baseContext).token = it.data.accessToken
-                    }
-
-                    is RequestStatus.Error -> {
-                        isLoading.value = false
-                        errorMessage.value = it.message
-                    }
-                }
-            }
-        }
-    }
-
     fun loginUser(body: LoginBody) {
         viewModelScope.launch {
             authRepository.loginUser(body).collect {
@@ -60,7 +36,7 @@ class LoginActivityViewModel(val authRepository: AuthRepository, val application
 
                     is RequestStatus.Success -> {
                         isLoading.value = false
-                        getUserInfo()
+                        user.value = it.data.user
                         AuthToken.getInstance(application.baseContext).token = it.data.accessToken
                     }
 

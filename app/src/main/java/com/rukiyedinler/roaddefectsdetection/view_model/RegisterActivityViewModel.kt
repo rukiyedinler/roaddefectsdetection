@@ -61,8 +61,8 @@ class RegisterActivityViewModel(val authRepository: AuthRepository, val applicat
                     is RequestStatus.Success -> {
                         isLoading.value = false
                         _registerSuccess.value = true
-                        //user.value = it.data.user
-                        //AuthToken.getInstance(application.baseContext).token = it.data.token
+                        user.value = it.data?.user
+                        AuthToken.getInstance(application.baseContext).token = it.data?.accessToken
                     }
 
                     is RequestStatus.Error -> {

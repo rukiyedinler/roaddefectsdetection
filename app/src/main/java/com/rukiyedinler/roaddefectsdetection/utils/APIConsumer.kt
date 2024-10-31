@@ -16,13 +16,14 @@ interface APIConsumer {
     @POST("validate-unique-email")
     suspend fun validateEmailAddress(@Body body: ValidateEmailBody): Response<UniqueEmailValidationResponse>
 
-    @POST("register")
-    suspend fun registerUser(@Body body: RegisterBody): Response<Void>
+    @POST("registerUser")
+    suspend fun registerUser(@Body body: RegisterBody): Response<AuthResponse>
 
     @POST("login")
     suspend fun loginUser(@Body body: LoginBody): Response<AuthResponse>
 
     @POST("getUser")
     suspend fun getUser(@Header("Authorization") token: String): Response<User>
+
 
 }
