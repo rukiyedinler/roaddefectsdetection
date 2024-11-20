@@ -1,26 +1,36 @@
 package com.rukiyedinler.roaddefectsdetection.view
+
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
-
-
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.widget.Button
 import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.rukiyedinler.roaddefectsdetection.R
 import java.io.File
-import androidx.core.content.ContextCompat
 
 class HomeActivity : AppCompatActivity() {
-    private lateinit var captureIV : ImageView
-    private lateinit var imageUrl : Uri
 
+    private lateinit var captureIV: ImageView
+    private lateinit var imageUrl: Uri
+
+    // Fotoğraf çekme işlemi için contract
     private val contract = registerForActivityResult(ActivityResultContracts.TakePicture()) {
         captureIV.setImageURI(null)
         captureIV.setImageURI(imageUrl)
+    }
+
+    // Galeriden fotoğraf seçmek için contract
+    private val pickImageContract = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        uri?.let {
+            captureIV.setImageURI(it)
+        }
     }
 
     // İzin isteği sonucunu işlemek için
@@ -51,14 +61,20 @@ class HomeActivity : AppCompatActivity() {
             captureImgBtn.setOnClickListener {
                 contract.launch(imageUrl)
             }
+
+            // Galeriden fotoğraf seçme butonuna tıklama işlemi
+            val selectImgBtn = findViewById<Button>(R.id.selectImgBtn)
+            selectImgBtn.setOnClickListener {
+                pickImageContract.launch("image/*")
+            }
         } else {
             // Kamera izni verilmemişse izin iste
             requestPermissionLauncher.launch(Manifest.permission.CAMERA)
         }
     }
 
-    private fun createImageUri():Uri {
-        val image = File(filesDir,"camera_photos.png")
+    private fun createImageUri(): Uri {
+        val image = File(filesDir, "camera_photos.png")
         return FileProvider.getUriForFile(this,
             "com.rukiyedinler.roaddefectsdetection.FileProvider",
             image)
