@@ -5,5 +5,10 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.RoadDefectsDetection" parent="Base.Theme.RoadDefectsDetection" />
+    <style name="Theme.RoadDefectsDetection" parent="Base.Theme.RoadDefectsDetection">
+    <!-- Temanız için gerekli renk tanımları -->
+    <item name="colorOnSurface">#FFFFFF</item>
+    <item name="android:textColorHint">#FFFFFF</item>
+    <item name="hintTextColor">@color/white</item>
+    </style>
 </resources>
