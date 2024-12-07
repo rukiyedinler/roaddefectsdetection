@@ -16,7 +16,6 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.rukiyedinler.roaddefectsdetection.R
 import com.rukiyedinler.roaddefectsdetection.data.RegisterBody
-import com.rukiyedinler.roaddefectsdetection.data.ValidateEmailBody
 import com.rukiyedinler.roaddefectsdetection.databinding.ActivityRegisterBinding
 import com.rukiyedinler.roaddefectsdetection.repository.AuthRepository
 import com.rukiyedinler.roaddefectsdetection.utils.APIService
@@ -119,9 +118,9 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener, View.OnFocus
 
         mViewModel.getUser().observe(this) {
             if (it != null) {
-                startActivity(Intent(this, HomeActivity::class.java))
+                startActivity(Intent(this, DefectReportActivity::class.java))
             }else{
-                startActivity(Intent(this, HomeActivity::class.java))
+                startActivity(Intent(this, DefectReportActivity::class.java))
             }
         }
     }

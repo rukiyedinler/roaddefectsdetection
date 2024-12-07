@@ -35,7 +35,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.HomeActivity"
+            android:name=".view.DefectReportActivity"
             android:exported="true" />
         <provider
             android:authorities="com.rukiyedinler.roaddefectsdetection.FileProvider"
@@ -48,6 +48,10 @@
         <activity
             android:name=".view.RegisterActivity"
             android:exported="false">
+              </activity>
+        <activity
+            android:name=".view.UserHomeActivity"
+            android:exported="true">
               </activity>
     </application>
 

@@ -1,25 +1,19 @@
 package com.rukiyedinler.roaddefectsdetection.view
 
 import android.content.Intent
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Patterns
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.rukiyedinler.roaddefectsdetection.R
 import com.rukiyedinler.roaddefectsdetection.data.LoginBody
-import com.rukiyedinler.roaddefectsdetection.data.ValidateEmailBody
 import com.rukiyedinler.roaddefectsdetection.databinding.ActivityLoginBinding
 import com.rukiyedinler.roaddefectsdetection.repository.AuthRepository
-import com.rukiyedinler.roaddefectsdetection.utils.APIConsumer
 import com.rukiyedinler.roaddefectsdetection.utils.APIService
 import com.rukiyedinler.roaddefectsdetection.utils.VibrateView
 import com.rukiyedinler.roaddefectsdetection.view_model.LoginActivityViewModel
@@ -89,8 +83,26 @@ class LoginActivity : AppCompatActivity() , View.OnClickListener, View.OnFocusCh
         }
 
         mViewModel.getUser().observe(this) {
-            if (it != null) {
-                startActivity(Intent(this, HomeActivity::class.java))
+                user ->
+            user?.let {
+                when (it.role) {
+                    1 -> { // Admin
+                        startActivity(Intent(this, RegisterActivity::class.java))
+                    }
+
+                    2 -> { // User
+                        startActivity(Intent(this, UserHomeActivity::class.java))
+                        //finish() geri dönmemesini istersen kullan
+                    }
+
+                    else -> {
+                        AlertDialog.Builder(this)
+                            .setTitle("Error")
+                            .setMessage("Invalid role: ${it.role}")
+                            .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+                            .show()
+                    }
+                }
             }
         }
     }
@@ -148,9 +160,13 @@ class LoginActivity : AppCompatActivity() , View.OnClickListener, View.OnFocusCh
 
 
     private fun submitForm(){
-        if(validate()){
-            //verify user credentials
-            mViewModel.loginUser(LoginBody(mBinding.emailEt.text!!.toString(),mBinding.passwordEt.text!!.toString()))
+        if (validate()) {
+            mViewModel.loginUser(
+                LoginBody(
+                    mBinding.emailEt.text!!.toString(),
+                    mBinding.passwordEt.text!!.toString()
+                )
+            )
         }
     }
 
