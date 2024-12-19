@@ -91,7 +91,11 @@ class LoginActivity : AppCompatActivity() , View.OnClickListener, View.OnFocusCh
                     }
 
                     2 -> { // User
-                        startActivity(Intent(this, UserHomeActivity::class.java))
+                        val intent = Intent(this, UserHomeActivity::class.java)
+                        intent.putExtra("user", user) // 'user' nesnesini ekliyoruz
+                        startActivity(intent)
+
+//                        startActivity(Intent(this, UserHomeActivity::class.java))
                         //finish() geri dönmemesini istersen kullan
                     }
 

@@ -48,6 +48,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener, View.OnFocus
             )
         ).get(RegisterActivityViewModel::class.java)
         setupObserves()
+
     }
 
 

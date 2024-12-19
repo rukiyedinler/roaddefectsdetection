@@ -1,11 +1,13 @@
 package com.rukiyedinler.roaddefectsdetection.utils
 
+import androidx.lifecycle.viewmodel.CreationExtras
 import com.rukiyedinler.roaddefectsdetection.data.RegisterBody
 import com.rukiyedinler.roaddefectsdetection.data.AuthResponse
+import com.rukiyedinler.roaddefectsdetection.data.ImageUploadBody
+import com.rukiyedinler.roaddefectsdetection.data.ImageUploadResponse
 import com.rukiyedinler.roaddefectsdetection.data.LoginBody
 import com.rukiyedinler.roaddefectsdetection.data.UniqueEmailValidationResponse
 import com.rukiyedinler.roaddefectsdetection.data.User
-import com.rukiyedinler.roaddefectsdetection.data.UserBody
 import com.rukiyedinler.roaddefectsdetection.data.ValidateEmailBody
 import retrofit2.Response
 import retrofit2.http.Body
@@ -24,6 +26,12 @@ interface APIConsumer {
 
     @POST("getUser")
     suspend fun getUser(@Header("Authorization") token: String): Response<User>
+
+    @POST("uploadImageBase64")
+    suspend fun uploadImageBase64(
+        @Header("Authorization") token: String,
+        @Body requestBody: ImageUploadBody
+    ): Response<ImageUploadResponse>
 
 
 }
