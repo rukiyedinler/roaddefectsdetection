@@ -5,6 +5,7 @@ import com.google.gson.Gson
 import com.rukiyedinler.roaddefectsdetection.data.ImageUploadBody
 import com.rukiyedinler.roaddefectsdetection.data.LoginBody
 import com.rukiyedinler.roaddefectsdetection.data.RegisterBody
+import com.rukiyedinler.roaddefectsdetection.data.UserBody
 import com.rukiyedinler.roaddefectsdetection.data.ValidateEmailBody
 import com.rukiyedinler.roaddefectsdetection.utils.APIConsumer
 import com.rukiyedinler.roaddefectsdetection.utils.RequestStatus
@@ -28,6 +29,7 @@ class AuthRepository(val consumer: APIConsumer) {
             )
         }
     }
+
 
     fun registerUser(body: RegisterBody) = flow {
         emit(RequestStatus.Waiting)
@@ -83,9 +85,9 @@ class AuthRepository(val consumer: APIConsumer) {
         }
     }
 
-    fun getUser(token:String) = flow {
+    fun getDefectList(body: UserBody) = flow {
         emit(RequestStatus.Waiting)
-        val response = consumer.getUser(token)
+        val response = consumer.getDefectList(body)
         if (response.isSuccessful) {
             emit(RequestStatus.Success(response.body()!!))
         } else {

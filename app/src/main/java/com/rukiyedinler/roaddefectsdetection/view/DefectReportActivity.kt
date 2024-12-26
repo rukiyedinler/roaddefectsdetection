@@ -52,7 +52,7 @@ class DefectReportActivity : AppCompatActivity() {
     private lateinit var mViewModel: DefectReportActivityViewModel
     private lateinit var binding: ActivityDefectReportBinding
     private lateinit var imageFile: File
-    private lateinit var user: User // User nesnesi için değişken
+    private lateinit var user: User
     private lateinit var locationHelper: CustomLocationManager
 
     private val contract = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
@@ -96,10 +96,12 @@ class DefectReportActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        locationHelper = CustomLocationManager(this)
+
         binding = ActivityDefectReportBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        user = intent.getParcelableExtra("user") ?: return // 'user' nesnesini alıyoruz
+        user = intent.getParcelableExtra("user") ?: return
 
         captureIV = findViewById(R.id.captureImageView)
         overlayText = findViewById(R.id.overlayText)
@@ -153,7 +155,6 @@ class DefectReportActivity : AppCompatActivity() {
 
         sendBtn.setOnClickListener {
             //Konum bilgisi alınıyor
-            locationHelper = CustomLocationManager(this)
             if (locationHelper.isLocationPermissionGranted()){
                 val address = locationHelper.getLocation()
                 address?.let {
@@ -165,7 +166,7 @@ class DefectReportActivity : AppCompatActivity() {
                 //Resim konum database e kaydediliyor.
                 val base64Image = imageViewToBase64(captureIV)
                 if (base64Image != null) {
-                    val token = AuthToken.getInstance(this).token // Saklanan token'ı alın.
+                    val token = AuthToken.getInstance(this).token
                     val imageBody = ImageUploadBody(
                         user.id,
                         base64Image,
@@ -178,7 +179,6 @@ class DefectReportActivity : AppCompatActivity() {
                                 Toast.makeText(this, "Yükleniyor...", Toast.LENGTH_SHORT).show()
                             }
                             is RequestStatus.Success -> {
-                                // İlgili birime gönderildiğini belirten metni göster
                                 infoText.visibility = View.VISIBLE
 
                                 // Geri dönüş butonunu göster
@@ -203,7 +203,6 @@ class DefectReportActivity : AppCompatActivity() {
             }
         }
 
-        // Geri dönüş butonu işlemi
         backBtn.setOnClickListener {
             finish() // Bir önceki aktiviteye döner
         }
@@ -226,12 +225,11 @@ class DefectReportActivity : AppCompatActivity() {
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
         val byteArray = byteArrayOutputStream.toByteArray()
 
-        // ByteArray'i Base64 string'e dönüştür (NO_WRAP kullanarak)
+        // ByteArray'i Base64 string'e dönüştürür
         return Base64.encodeToString(byteArray, Base64.NO_WRAP)
     }
 
     private fun createImageFile(): File {
-        // Yeni dosya oluşturma
         return File(filesDir, "camera_image_${System.currentTimeMillis()}.png")
     }
 

@@ -12,6 +12,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.rukiyedinler.roaddefectsdetection.R
 import com.rukiyedinler.roaddefectsdetection.data.LoginBody
+import com.rukiyedinler.roaddefectsdetection.data.User
 import com.rukiyedinler.roaddefectsdetection.databinding.ActivityLoginBinding
 import com.rukiyedinler.roaddefectsdetection.repository.AuthRepository
 import com.rukiyedinler.roaddefectsdetection.utils.APIService
@@ -87,7 +88,9 @@ class LoginActivity : AppCompatActivity() , View.OnClickListener, View.OnFocusCh
             user?.let {
                 when (it.role) {
                     1 -> { // Admin
-                        startActivity(Intent(this, RegisterActivity::class.java))
+                        val intent = Intent(this, DefectListActivity::class.java)
+                        intent.putExtra("user", user) // 'user' nesnesini ekliyoruz
+                        startActivity(intent)
                     }
 
                     2 -> { // User

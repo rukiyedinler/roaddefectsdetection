@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:padding="16dp"
+    tools:context=".view.DefectDetailActivity">
+
+    <!-- Image Card -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:strokeColor="@color/lavender"
+        app:strokeWidth="1dp"
+        android:layout_gravity="center">
+
+        <!-- ImageView with Rounded Corners -->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/detailImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MaterialComponents.Corner.Medium" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Location Section -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Konum:"
+        android:textColor="@color/lavender"
+        android:textStyle="bold"
+        android:layout_marginBottom="4dp"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/detailLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Confidence Section -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Doğruluk Oranı:"
+        android:textColor="@color/lavender"
+        android:textStyle="bold"
+        android:layout_marginBottom="4dp"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/detailConfidence"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="16sp"
+        android:textColor="@color/design_default_color_error"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Eklendiği Tarih:"
+        android:textColor="@color/lavender"
+        android:textStyle="bold"
+        android:layout_marginBottom="4dp"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/detailCreatedAt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_marginBottom="16dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ekleyen Kullanıcı:"
+        android:textColor="@color/lavender"
+        android:textStyle="bold"
+        android:layout_marginBottom="4dp"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/detailUserName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_marginBottom="16dp" />
+
+</LinearLayout>

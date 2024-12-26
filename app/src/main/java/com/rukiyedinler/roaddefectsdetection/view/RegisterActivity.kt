@@ -119,9 +119,11 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener, View.OnFocus
 
         mViewModel.getUser().observe(this) {
             if (it != null) {
-                startActivity(Intent(this, DefectReportActivity::class.java))
+                val intent = Intent(this, UserHomeActivity::class.java)
+                intent.putExtra("user", it) // 'user' nesnesini ekliyoruz
+                startActivity(intent)
             }else{
-                startActivity(Intent(this, DefectReportActivity::class.java))
+                startActivity(Intent(this, RegisterActivity::class.java))
             }
         }
     }
