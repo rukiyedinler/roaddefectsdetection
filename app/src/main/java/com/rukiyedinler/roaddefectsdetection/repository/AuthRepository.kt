@@ -56,6 +56,7 @@ class AuthRepository(val consumer: APIConsumer) {
         Log.d("ImageUploadBody", jsonString)
 
         val response = consumer.uploadImageBase64(token, body)
+
         if (response.isSuccessful) {
             emit(RequestStatus.Success(response.body()!!))
         } else {
