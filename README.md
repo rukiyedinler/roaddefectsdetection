@@ -81,10 +81,6 @@ Bu proje, yol bozukluğu tespiti ve bildirim süreçlerini yöneten bir kullanı
 
 ## Proje Kurulumu
 
-### Gereksinimler
-- .NET 6 veya daha yeni bir sürüm.
-- Visual Studio veya benzeri bir IDE.
-
 ### Proje Yapılandırması
 - UI projesi, kullanıcı deneyimini en üst düzeye çıkarmayı hedefler.
 - Veritabanı ve API bağlantıları için gerekli yapılandırmalar yapılmıştır.
